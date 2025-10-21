@@ -30,6 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: const EdgeInsets.only(right: 20.0, top: 10),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
+                fixedSize: Size(80, 60),
                 backgroundColor: AppColors.primaryColor,
                 foregroundColor: AppColors.backGroundColor,
                 shape: RoundedRectangleBorder(

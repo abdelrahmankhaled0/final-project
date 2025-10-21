@@ -10,5 +10,27 @@ class AppThemes {
       backgroundColor: AppColors.backGroundColor,
       elevation: 0.0,
     ),
+    inputDecorationTheme: InputDecorationThemeData(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(width: 1, color: AppColors.grayColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(width: 1, color: AppColors.primaryColor),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(width: 8, color: AppColors.borderColor),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primaryColor,
+        foregroundColor: AppColors.backGroundColor,
+        fixedSize: Size(360, 50),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      ),
+    ),
   );
 }
