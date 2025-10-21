@@ -1,7 +1,6 @@
 import 'package:final_project/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-// ignore: use_key_in_widget_constructors
 class PatientScreen extends StatelessWidget {
   final List<Map<String, String>> patients = [
     {
