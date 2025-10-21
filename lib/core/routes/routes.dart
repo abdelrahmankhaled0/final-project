@@ -1,9 +1,9 @@
 import 'package:final_project/features/authentacation/presentation/screens/signin_screen.dart';
 import 'package:final_project/features/authentacation/presentation/screens/signup_screen.dart';
-import 'package:final_project/features/home_screen/presentation/bloodDonors.dart';
-import 'package:final_project/features/home_screen/presentation/homeScreen.dart';
-import 'package:final_project/features/home_screen/presentation/icuScreen.dart';
-import 'package:final_project/features/home_screen/presentation/patients.dart';
+import 'package:final_project/features/blood_donors/presentation/screens/blood_donors.dart';
+import 'package:final_project/features/home_screen/presentation/screens/home_screen.dart';
+import 'package:final_project/features/icu/presentation/screen/icu_screen.dart';
+import 'package:final_project/features/patient/presentation/screen/patients_screen.dart';
 import 'package:final_project/features/onboarding_screen/presentation/screens/onboarding_screen.dart';
 import 'package:final_project/features/splash_screen/prsentation/screens/splash_screen.dart';
 import 'package:final_project/features/welcome_screen/presentation/screens/welcome_screen.dart';
@@ -20,9 +20,6 @@ class AppRoutes {
   static const String bloodDonors = "/bloodDonors";
   static const String patient = "/PatientScreen";
 
-
-
-
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
@@ -36,11 +33,11 @@ class AppRoutes {
       GoRoute(path: signup, builder: (context, state) => SignupScreen()),
       GoRoute(path: homeScreen, builder: (context, state) => HomeScreen()),
       GoRoute(path: icu, builder: (context, state) => ICUBedsScreen()),
-      GoRoute(path: bloodDonors, builder: (context, state) => BloodDonorsScreen()),
+      GoRoute(
+        path: bloodDonors,
+        builder: (context, state) => BloodDonorsScreen(),
+      ),
       GoRoute(path: patient, builder: (context, state) => PatientScreen()),
-
-
-
     ],
   );
 }

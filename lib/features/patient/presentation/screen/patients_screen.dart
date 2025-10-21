@@ -1,8 +1,7 @@
 import 'package:final_project/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-
-
+// ignore: use_key_in_widget_constructors
 class PatientScreen extends StatelessWidget {
   final List<Map<String, String>> patients = [
     {
@@ -10,21 +9,21 @@ class PatientScreen extends StatelessWidget {
       "status": "Stable",
       "room": "ICU-01",
       "doctor": "Dr. Salma Hussein",
-      "statusColor": "green"
+      "statusColor": "green",
     },
     {
       "name": "Ali Youssef",
       "status": "Critical",
       "room": "ICU-02",
       "doctor": "Dr. Karim Saeed",
-      "statusColor": "red"
+      "statusColor": "red",
     },
     {
       "name": "Nour Adel",
       "status": "Under Observation",
       "room": "ICU-03",
       "doctor": "Dr. Ahmed Fathy",
-      "statusColor": "orange"
+      "statusColor": "orange",
     },
   ];
 
@@ -32,16 +31,7 @@ class PatientScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
-      appBar: AppBar(
-        title: const Text(
-          'Patient Management',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: AppColors.primaryColor,
-      ),
+
       body: ListView.builder(
         itemCount: patients.length,
         padding: const EdgeInsets.all(12),
@@ -86,11 +76,20 @@ class PatientScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(patient["room"]!, style: const TextStyle(color: AppColors.grayColor)),
-                  Text(patient["doctor"]!, style: const TextStyle(color: AppColors.grayColor)),
+                  Text(
+                    patient["room"]!,
+                    style: const TextStyle(color: AppColors.grayColor),
+                  ),
+                  Text(
+                    patient["doctor"]!,
+                    style: const TextStyle(color: AppColors.grayColor),
+                  ),
                 ],
               ),
-              trailing: const Icon(Icons.info_outline, color: AppColors.primaryColor),
+              trailing: const Icon(
+                Icons.info_outline,
+                color: AppColors.primaryColor,
+              ),
             ),
           );
         },

@@ -41,15 +41,7 @@ class BloodDonorsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
-      appBar: AppBar(
-        title: const Text(
-          'Blood Donors',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: AppColors.primaryColor,
-        centerTitle: true,
-        elevation: 4,
-      ),
+
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(

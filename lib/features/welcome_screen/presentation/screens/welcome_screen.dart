@@ -45,16 +45,7 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () {
                       AppNavigations.pushTo(context, AppRoutes.signup);
                     },
-
                   ),
-              Gap(20),
-                  DefaultBotton(
-                    textBotton: "Home Screen",
-                    onPressrd: () {
-                      AppNavigations.pushTo(context, AppRoutes.homeScreen);
-                    },
-                  ),
-
                 ],
               ),
             ),

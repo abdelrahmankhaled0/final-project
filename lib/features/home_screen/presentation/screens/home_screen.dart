@@ -1,12 +1,9 @@
 import 'package:final_project/core/utils/colors.dart';
-import 'package:final_project/features/home_screen/presentation/bloodDonors.dart';
-import 'package:final_project/features/home_screen/presentation/bloodStock.dart';
-import 'package:final_project/features/home_screen/presentation/icuScreen.dart';
-import 'package:final_project/features/home_screen/presentation/patients.dart';
+import 'package:final_project/features/blood_donors/presentation/screens/blood_donors.dart';
+import 'package:final_project/features/blood_stook/presentation/screen/blood_stock.dart';
+import 'package:final_project/features/icu/presentation/screen/icu_screen.dart';
+import 'package:final_project/features/patient/presentation/screen/patients_screen.dart';
 import 'package:flutter/material.dart';
-import '../../../core/routes/navigations.dart';
-import '../../../core/routes/routes.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,28 +17,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Pages
   static final List<Widget> _pages = <Widget>[
-    Center(
-      child:
-        PatientScreen()
-    ),
-    const Center(
-      child:
-        BloodDonorsScreen()
-    ),
-    const Center(
-      child: BloodStockScreen(),
-    ),
-    const Center(
-      child:
-      ICUBedsScreen(),
+    Center(child: PatientScreen()),
+    const Center(child: BloodDonorsScreen()),
+    const Center(child: BloodStockScreen()),
+    const Center(child: ICUBedsScreen()),
+  ];
 
-    ),
+  List<String> appBarTitles = [
+    "Patient Management",
+    "Blood Donors",
+    "Blood Stock",
+    "ICU Beds Management",
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-
     });
   }
 
@@ -49,7 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ICU & Blood Bank Management',style: TextStyle(color: Colors.white),),
+        title: Text(
+          appBarTitles[_selectedIndex],
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,
       ),
@@ -66,14 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.local_hospital),
             label: 'Patients',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Donors',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inventory),
-            label: 'Stock',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Donors'),
+          BottomNavigationBarItem(icon: Icon(Icons.inventory), label: 'Stock'),
           BottomNavigationBarItem(
             icon: Icon(Icons.monitor_heart_outlined),
             label: 'ICU',

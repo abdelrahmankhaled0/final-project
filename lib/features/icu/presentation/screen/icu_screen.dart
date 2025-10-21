@@ -44,17 +44,7 @@ class ICUBedsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backGroundColor,
-      appBar: AppBar(
-        title: const Text(
-          'ICU Beds Management',
-          style: TextStyle(
-            color: AppColors.backGroundColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: AppColors.primaryColor,
-        centerTitle: true,
-      ),
+
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(
@@ -69,7 +59,10 @@ class ICUBedsScreen extends StatelessWidget {
               color: AppColors.backGroundColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
-                side: const BorderSide(color: AppColors.borderColor, width: 1.2),
+                side: const BorderSide(
+                  color: AppColors.borderColor,
+                  width: 1.2,
+                ),
               ),
               elevation: 3,
               child: Container(
@@ -86,7 +79,11 @@ class ICUBedsScreen extends StatelessWidget {
                         color: AppColors.primaryColor.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(icon, color: AppColors.primaryColor, size: 40),
+                      child: Icon(
+                        icon,
+                        color: AppColors.primaryColor,
+                        size: 40,
+                      ),
                     ),
                     const SizedBox(width: 16),
 
@@ -138,7 +135,9 @@ class ICUBedsScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                               side: const BorderSide(
-                                  color: AppColors.borderColor, width: 1),
+                                color: AppColors.borderColor,
+                                width: 1,
+                              ),
                             ),
                             title: Text(
                               bed['id'],
@@ -151,12 +150,19 @@ class ICUBedsScreen extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Status: ${bed['status']}",
-                                    style: TextStyle(color: getStatusColor(bed['status']))),
+                                Text(
+                                  "Status: ${bed['status']}",
+                                  style: TextStyle(
+                                    color: getStatusColor(bed['status']),
+                                  ),
+                                ),
                                 if (bed['patient'] != null)
-                                  Text("Patient: ${bed['patient']}",
-                                      style: const TextStyle(
-                                          color: AppColors.darkColor)),
+                                  Text(
+                                    "Patient: ${bed['patient']}",
+                                    style: const TextStyle(
+                                      color: AppColors.darkColor,
+                                    ),
+                                  ),
                                 const SizedBox(height: 10),
                                 const Text(
                                   "Details:\n- Ventilator available\n- Nurse assigned\n- Monitoring active",
@@ -169,14 +175,16 @@ class ICUBedsScreen extends StatelessWidget {
                                 onPressed: () => Navigator.pop(context),
                                 child: const Text(
                                   'Close',
-                                  style: TextStyle(color: AppColors.primaryColor),
+                                  style: TextStyle(
+                                    color: AppColors.primaryColor,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         );
                       },
-                    )
+                    ),
                   ],
                 ),
               ),
