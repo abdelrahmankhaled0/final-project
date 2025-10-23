@@ -9,6 +9,8 @@ class AppThemes {
     appBarTheme: AppBarThemeData(
       backgroundColor: AppColors.backGroundColor,
       elevation: 0.0,
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
     ),
     inputDecorationTheme: InputDecorationThemeData(
       enabledBorder: OutlineInputBorder(
@@ -28,7 +30,7 @@ class AppThemes {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryColor,
         foregroundColor: AppColors.backGroundColor,
-        fixedSize: Size(360, 50),
+        minimumSize: Size.fromHeight(50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       ),
     ),

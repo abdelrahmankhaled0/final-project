@@ -44,7 +44,10 @@ class SigninScreen extends StatelessWidget {
                 contrlloer: emailController,
               ),
               Gap(20),
-              DefaultPasswordFormFiled(controller: passwordController),
+              DefaultPasswordFormFiled(
+                controller: passwordController,
+                lableText: "Password",
+              ),
               Row(
                 children: [
                   DefaultForgetPasswordRow(),
@@ -57,7 +60,9 @@ class SigninScreen extends StatelessWidget {
                   ),
                   Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      AppNavigations.pushTo(context, AppRoutes.forgetPassword);
+                    },
                     child: Text(
                       'Forgot password?',
                       style: TextStyles.textStyle16.copyWith(

@@ -3,9 +3,14 @@ import 'package:final_project/core/utils/text.dart';
 import 'package:flutter/material.dart';
 
 class DefaultPasswordFormFiled extends StatefulWidget {
-  const DefaultPasswordFormFiled({super.key, required this.controller});
+  const DefaultPasswordFormFiled({
+    super.key,
+    required this.controller,
+    required this.lableText,
+  });
 
   final TextEditingController controller;
+  final String lableText;
 
   @override
   State<DefaultPasswordFormFiled> createState() =>
@@ -22,10 +27,8 @@ class _DefaultPasswordFormFiledState extends State<DefaultPasswordFormFiled> {
       controller: widget.controller,
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
-        labelText: "Password",
-        labelStyle: TextStyles.textStyle16.copyWith(
-          color: AppColors.textLableColor,
-        ),
+        labelText: widget.lableText,
+        labelStyle: TextStyles.textStyle16.copyWith(color: AppColors.grayColor),
         suffixIcon: IconButton(
           onPressed: () {
             setState(() {

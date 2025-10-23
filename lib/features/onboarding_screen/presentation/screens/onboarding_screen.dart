@@ -28,19 +28,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0, top: 10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(80, 60),
-                backgroundColor: AppColors.primaryColor,
-                foregroundColor: AppColors.backGroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              width: 80,
+              height: 40,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  foregroundColor: AppColors.backGroundColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onPressed: () {
+                  AppNavigations.pushReplaceMentTo(context, AppRoutes.welcome);
+                },
+                child: Text('Skip', style: TextStyles.textStyle16),
               ),
-              onPressed: () {
-                AppNavigations.pushReplaceMentTo(context, AppRoutes.welcome);
-              },
-              child: Text('Skip', style: TextStyles.textStyle16),
             ),
           ),
         ],

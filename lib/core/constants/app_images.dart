@@ -6,4 +6,5 @@ class AppImages {
   static const String facebookImage = "assets/images/facebook.png";
   static const String googleImage = "assets/images/google.png";
   static const String iphoneImage = "assets/images/iphone.png";
+  static const String successImage = "assets/images/success.png";
 }

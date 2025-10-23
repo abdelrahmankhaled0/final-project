@@ -9,9 +9,12 @@ class DefaultBotton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressrd,
-      child: Text(textBotton, style: TextStyles.textStyle16),
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onPressrd,
+        child: Text(textBotton, style: TextStyles.textStyle16),
+      ),
     );
   }
 }

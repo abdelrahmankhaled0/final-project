@@ -16,40 +16,43 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(child: Image.asset(AppImages.welcomeImage)),
-            Gap(40),
-            Text('Hello !', style: TextStyles.textStyle24),
-            Gap(20),
-            Text(
-              '"Choose an option to access your emergency\n services: Log in for returning users or Sign\n up for new users."',
-              textAlign: TextAlign.center,
-              style: TextStyles.textStyle16.copyWith(
-                color: AppColors.grayColor,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Expanded(child: Image.asset(AppImages.welcomeImage)),
+              Gap(40),
+              Text('Hello !', style: TextStyles.textStyle24),
+              Gap(20),
+              Text(
+                '"Choose an option to access your emergency\n services: Log in for returning users or Sign\n up for new users."',
+                textAlign: TextAlign.center,
+                style: TextStyles.textStyle16.copyWith(
+                  color: AppColors.grayColor,
+                ),
               ),
-            ),
-            Gap(120),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 50.0),
-              child: Column(
-                children: [
-                  DefaultBotton(
-                    textBotton: "Sign in",
-                    onPressrd: () {
-                      AppNavigations.pushTo(context, AppRoutes.signin);
-                    },
-                  ),
-                  Gap(20),
-                  DefaultSignUpButton(
-                    onPressed: () {
-                      AppNavigations.pushTo(context, AppRoutes.signup);
-                    },
-                  ),
-                ],
+              Gap(120),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50.0),
+                child: Column(
+                  children: [
+                    DefaultBotton(
+                      textBotton: "Sign in",
+                      onPressrd: () {
+                        AppNavigations.pushTo(context, AppRoutes.signin);
+                      },
+                    ),
+                    Gap(20),
+                    DefaultSignUpButton(
+                      onPressed: () {
+                        AppNavigations.pushTo(context, AppRoutes.signup);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
