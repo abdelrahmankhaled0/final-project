@@ -5,7 +5,6 @@ import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/core/utils/text.dart';
 import 'package:final_project/core/widgets/default_botton.dart';
 import 'package:final_project/features/authentacation/presentation/widgets/default_divider.dart';
-import 'package:final_project/features/authentacation/presentation/widgets/default_forget_password_row.dart';
 import 'package:final_project/features/authentacation/presentation/widgets/default_form_filed.dart';
 import 'package:final_project/features/authentacation/presentation/widgets/default_password_form_filed.dart';
 import 'package:final_project/features/authentacation/presentation/widgets/default_social_register.dart';
