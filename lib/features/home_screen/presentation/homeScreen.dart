@@ -1,6 +1,6 @@
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/features/blood_donors/presentation/screens/blood_donors.dart';
-import 'package:final_project/features/blood_stook/presentation/screen/blood_stock.dart';
+import 'package:final_project/features/blood_stook/blood_screen.dart';
 import 'package:final_project/features/icu/presentation/screen/icu_screen.dart';
 import 'package:final_project/features/patient/presentation/screen/patients_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static final List<Widget> _pages = <Widget>[
     Center(child: PatientScreen()),
     const Center(child: BloodDonorsScreen()),
-    const Center(child: BloodStockScreen()),
+    const Center(child: BloodScreen()),
     const Center(child: ICUBedsScreen()),
   ];
 
@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'ICU & Blood Bank Management',
           style: TextStyle(color: Colors.white),
