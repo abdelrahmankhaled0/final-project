@@ -1,4 +1,3 @@
-import 'package:final_project/features/patient/data/models/patient_model.dart';
 import 'package:final_project/features/patient/presentation/widget/build_patient_tab.dart';
 import 'package:final_project/features/patient/presentation/widget/build_request_tab.dart';
 import 'package:flutter/material.dart';

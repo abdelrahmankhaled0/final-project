@@ -41,11 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+
         title: Text(
           appBarTitles[_selectedIndex],
           style: TextStyle(color: Colors.white),
         ),
-        centerTitle: true,
         backgroundColor: AppColors.primaryColor,
       ),
       body: _pages[_selectedIndex],
