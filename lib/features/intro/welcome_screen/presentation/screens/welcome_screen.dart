@@ -4,7 +4,7 @@ import 'package:final_project/core/routes/routes.dart';
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/core/utils/text.dart';
 import 'package:final_project/core/widgets/default_botton.dart';
-import 'package:final_project/features/welcome_screen/presentation/widgets/default_sign_up_button.dart';
+import 'package:final_project/features/intro/welcome_screen/widgets/deafult_sign_up_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

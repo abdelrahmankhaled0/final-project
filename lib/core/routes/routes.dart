@@ -7,10 +7,10 @@ import 'package:final_project/features/authentacation/presentation/screens/succe
 import 'package:final_project/features/blood_donors/presentation/screens/blood_donors.dart';
 import 'package:final_project/features/home_screen/presentation/screens/home_screen.dart';
 import 'package:final_project/features/icu/presentation/screen/icu_screen.dart';
+import 'package:final_project/features/intro/welcome_screen/presentation/screens/welcome_screen.dart';
 import 'package:final_project/features/patient/presentation/screen/patients_screen.dart';
 import 'package:final_project/features/onboarding_screen/presentation/screens/onboarding_screen.dart';
 import 'package:final_project/features/splash_screen/prsentation/screens/splash_screen.dart';
-import 'package:final_project/features/welcome_screen/presentation/screens/welcome_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
