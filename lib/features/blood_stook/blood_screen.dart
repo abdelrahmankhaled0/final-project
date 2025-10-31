@@ -99,16 +99,12 @@ class _BloodScreenState extends State<BloodScreen>
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.borderColor, width: 1),
             ),
             child: TabBar(
               controller: _tabController,
-              indicator: BoxDecoration(
-                color: AppColors.primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
+              indicator: BoxDecoration(),
               labelColor: AppColors.primaryColor,
-              unselectedLabelColor: AppColors.darkColor,
+              unselectedLabelColor: AppColors.grayColor,
               tabs: const [
                 Tab(text: "Blood Stock"),
                 Tab(text: "Requests"),

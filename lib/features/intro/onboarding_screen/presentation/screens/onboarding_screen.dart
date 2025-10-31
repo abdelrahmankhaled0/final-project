@@ -2,7 +2,7 @@ import 'package:final_project/core/routes/navigations.dart';
 import 'package:final_project/core/routes/routes.dart';
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/core/utils/text.dart';
-import 'package:final_project/features/onboarding_screen/data/models/onboarding_model.dart';
+import 'package:final_project/features/intro/onboarding_screen/data/onboarding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -92,7 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               effect: WormEffect(
                 dotWidth: 8,
                 dotHeight: 8,
-                activeDotColor: AppColors.darkColor,
+                activeDotColor: AppColors.primaryColor,
               ),
             ),
             SizedBox(height: 50),

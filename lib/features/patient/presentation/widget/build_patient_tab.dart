@@ -46,6 +46,7 @@ Widget buildPatientsTab() {
     itemBuilder: (context, index) {
       final patient = patients[index];
       return Card(
+        color: AppColors.backGroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: const BorderSide(color: AppColors.borderColor, width: 1),
