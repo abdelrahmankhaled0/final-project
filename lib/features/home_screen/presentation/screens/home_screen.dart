@@ -1,6 +1,6 @@
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/features/blood_donors/presentation/screens/blood_donors.dart';
-import 'package:final_project/features/blood_stook/blood_screen.dart';
+import 'package:final_project/features/blood_stook/presentation/screens/blood_screen.dart';
 import 'package:final_project/features/icu/presentation/screen/icu_screen.dart';
 import 'package:final_project/features/patient/presentation/screen/patients_screen.dart';
 import 'package:flutter/material.dart';
