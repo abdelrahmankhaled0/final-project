@@ -1,4 +1,3 @@
-import 'package:final_project/core/utils/text.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/features/patient/data/models/patient_model.dart';
@@ -71,6 +70,7 @@ class _AddRequestDialogState extends State<AddRequestDialog> {
               decoration: const InputDecoration(
                 labelText: "Priority",
                 labelStyle: TextStyle(color: AppColors.primaryColor),
+
                 border: OutlineInputBorder(),
               ),
               items: [
