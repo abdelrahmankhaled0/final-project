@@ -1,21 +1,9 @@
+import 'package:final_project/features/patient/presentation/widget/build_show_request_dialog_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/features/patient/data/models/patient_model.dart';
-import 'package:flutter/material.dart';
 
-Widget buildPatientsTab() {
-  Color getStatusColor(String colorName) {
-    switch (colorName) {
-      case "green":
-        return Colors.green;
-      case "red":
-        return Colors.red;
-      case "orange":
-        return Colors.orange;
-      default:
-        return AppColors.grayColor;
-    }
-  }
-
+Widget buildPatientsTab({required Function(PatientRequest) onAddRequest}) {
   final List<Patient> patients = [
     Patient(
       name: "Mohamed Ahmed",
@@ -40,60 +28,61 @@ Widget buildPatientsTab() {
     ),
   ];
 
+  Color getStatusColor(String statusColor) {
+    switch (statusColor) {
+      case "red":
+        return Colors.red;
+      case "green":
+        return Colors.green;
+      case "orange":
+        return Colors.orange;
+      default:
+        return AppColors.grayColor;
+    }
+  }
+
   return ListView.builder(
     itemCount: patients.length,
     padding: const EdgeInsets.all(12),
     itemBuilder: (context, index) {
       final patient = patients[index];
       return Card(
-        color: AppColors.backGroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: const BorderSide(color: AppColors.borderColor, width: 1),
         ),
-        elevation: 3,
         margin: const EdgeInsets.symmetric(vertical: 8),
         child: ListTile(
-          leading: CircleAvatar(
-            radius: 28,
-            backgroundColor: AppColors.primaryColor.withOpacity(0.2),
-            child: const Icon(
-              Icons.person,
-              color: AppColors.primaryColor,
-              size: 30,
-            ),
-          ),
+          leading: const Icon(Icons.person, color: AppColors.primaryColor),
           title: Text(
             patient.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: AppColors.darkColor,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(
+            "${patient.status} - ${patient.room}",
+            style: TextStyle(color: getStatusColor(patient.statusColor)),
+          ),
+          trailing: IconButton(
+            icon: const Icon(
+              Icons.add_circle_outline,
+              color: AppColors.primaryColor,
             ),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                patient.status,
-                style: TextStyle(
-                  color: getStatusColor(patient.statusColor),
-                  fontWeight: FontWeight.bold,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => AddRequestDialog(
+                  patient: patient,
+                  onSubmit: (req) {
+                    onAddRequest(req);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Request added for ${req.patientName} ✅"),
+                      ),
+                    );
+                  },
                 ),
-              ),
-              Text(
-                patient.room,
-                style: const TextStyle(color: AppColors.grayColor),
-              ),
-              Text(
-                patient.doctor,
-                style: const TextStyle(color: AppColors.grayColor),
-              ),
-            ],
-          ),
-          trailing: const Icon(
-            Icons.info_outline,
-            color: AppColors.primaryColor,
+              );
+            },
           ),
         ),
       );

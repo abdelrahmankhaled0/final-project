@@ -1,32 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/features/patient/data/models/patient_model.dart';
-import 'package:flutter/material.dart';
 
-Widget buildRequestsTab() {
-  final List<PatientRequest> requests = [
-    PatientRequest(
-      id: "REQ-201",
-      patientName: "Mohamed Ahmed",
-      requestType: "Pain Relief",
-      priority: "High",
-      details: "Patient is complaining of severe headache.",
-    ),
-    PatientRequest(
-      id: "REQ-202",
-      patientName: "Ali Youssef",
-      requestType: "Doctor Visit",
-      priority: "Critical",
-      details: "Needs immediate doctor check due to low oxygen levels.",
-    ),
-    PatientRequest(
-      id: "REQ-203",
-      patientName: "Nour Adel",
-      requestType: "Food Request",
-      priority: "Normal",
-      details: "Patient requested lunch (soft diet).",
-    ),
-  ];
-
+Widget buildRequestsTab({
+  required List<PatientRequest> requests,
+  required Function(String) onRemoveRequest,
+}) {
   Color getPriorityColor(String priority) {
     switch (priority) {
       case "High":
@@ -38,21 +17,38 @@ Widget buildRequestsTab() {
     }
   }
 
-  return Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: ListView.builder(
-      itemCount: requests.length,
-      itemBuilder: (context, index) {
-        final req = requests[index];
-        final color = getPriorityColor(req.priority);
+  if (requests.isEmpty) {
+    return const Center(
+      child: Text(
+        "No requests yet.",
+        style: TextStyle(color: AppColors.grayColor),
+      ),
+    );
+  }
 
-        return Card(
-          margin: const EdgeInsets.symmetric(vertical: 10),
+  return ListView.builder(
+    padding: const EdgeInsets.all(12),
+    itemCount: requests.length,
+    itemBuilder: (context, index) {
+      final req = requests[index];
+      final color = getPriorityColor(req.priority);
+
+      return Dismissible(
+        key: ValueKey(req.id),
+        direction: DismissDirection.endToStart,
+        background: Container(
+          color: Colors.redAccent,
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.only(right: 20),
+          child: const Icon(Icons.delete, color: Colors.white),
+        ),
+        onDismissed: (_) => onRemoveRequest(req.id),
+        child: Card(
+          margin: const EdgeInsets.symmetric(vertical: 8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
             side: const BorderSide(color: AppColors.borderColor, width: 1.2),
           ),
-          elevation: 3,
           child: ListTile(
             leading: const Icon(
               Icons.notifications_active_outlined,
@@ -60,18 +56,12 @@ Widget buildRequestsTab() {
             ),
             title: Text(
               req.patientName,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.darkColor,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(
-              "${req.requestType} (${req.priority})",
-              style: const TextStyle(color: AppColors.grayColor),
-            ),
-            trailing: Text(
-              req.priority,
-              style: TextStyle(color: color, fontWeight: FontWeight.w600),
+            subtitle: Text("${req.requestType} (${req.priority})"),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+              onPressed: () => onRemoveRequest(req.id),
             ),
             onTap: () {
               showDialog(
@@ -80,55 +70,28 @@ Widget buildRequestsTab() {
                   backgroundColor: AppColors.backGroundColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
-                    side: const BorderSide(
-                      color: AppColors.borderColor,
-                      width: 1.0,
-                    ),
+                    side: const BorderSide(color: AppColors.borderColor),
                   ),
-                  title: const Row(
-                    children: [
-                      Icon(Icons.info_outline, color: AppColors.primaryColor),
-                      SizedBox(width: 8),
-                      Text(
-                        "Request Details",
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
+                  title: const Text(
+                    "Request Details",
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Patient: ${req.patientName}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.darkColor,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        "Type: ${req.requestType}",
-                        style: const TextStyle(color: AppColors.grayColor),
-                      ),
+                      Text("Patient: ${req.patientName}"),
+                      Text("Type: ${req.requestType}"),
                       Text(
                         "Priority: ${req.priority}",
                         style: TextStyle(color: color),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        "Details:\n${req.details}",
-                        style: const TextStyle(color: AppColors.grayColor),
-                      ),
+                      const SizedBox(height: 8),
+                      Text("Details:\n${req.details}"),
                     ],
-                  ),
-                  actionsPadding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 10,
                   ),
                   actions: [
                     Row(
@@ -145,7 +108,9 @@ Widget buildRequestsTab() {
                                 side: const BorderSide(color: Colors.redAccent),
                               ),
                             ),
-                            onPressed: () => Navigator.pop(context),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             child: const Text(
                               "Reject",
                               style: TextStyle(
@@ -168,7 +133,9 @@ Widget buildRequestsTab() {
                                 ),
                               ),
                             ),
-                            onPressed: () => Navigator.pop(context),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             child: const Text(
                               "Accept",
                               style: TextStyle(
@@ -185,8 +152,8 @@ Widget buildRequestsTab() {
               );
             },
           ),
-        );
-      },
-    ),
+        ),
+      );
+    },
   );
 }
