@@ -1,33 +1,248 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/features/patient/data/models/patient_model.dart';
-import 'package:final_project/features/patient/presentation/widget/build_patient_tab.dart';
-import 'package:final_project/features/patient/presentation/widget/build_request_tab.dart';
+import 'package:final_project/features/patient/data/patient_data_store.dart';
+import 'package:final_project/features/patient/presentation/widget/build_show_request_dialog_screen.dart';
 
 class PatientScreen extends StatefulWidget {
   const PatientScreen({super.key});
 
   @override
-  State<PatientScreen> createState() => _PatientScreenState();
+  State<PatientScreen> createState() => PatientScreenState();
 }
 
-class _PatientScreenState extends State<PatientScreen>
+class PatientScreenState extends State<PatientScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  List<PatientRequest> requests = [];
+  late TabController tabController;
+  final PatientDataStore store = PatientDataStore();
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
   }
 
   void addRequest(PatientRequest req) {
-    setState(() => requests.add(req));
+    store.addRequest(req);
+    tabController.animateTo(1);
   }
 
-  void removeRequest(String id) {
-    setState(() => requests.removeWhere((r) => r.id == id));
+  void removeRequest(String id) => store.removeRequest(id);
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
+  Widget patientsTab(BuildContext context) {
+    final patients = [
+      Patient(
+        name: "Mohamed Ahmed",
+        status: "Stable",
+        room: "ICU-01",
+        doctor: "Dr. Salma",
+        statusColor: "green",
+      ),
+      Patient(
+        name: "Ali Youssef",
+        status: "Critical",
+        room: "ICU-02",
+        doctor: "Dr. Karim",
+        statusColor: "red",
+      ),
+      Patient(
+        name: "Nour Adel",
+        status: "Under Observation",
+        room: "ICU-03",
+        doctor: "Dr. Ahmed",
+        statusColor: "orange",
+      ),
+    ];
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(12),
+      itemCount: patients.length,
+      itemBuilder: (context, index) {
+        final patient = patients[index];
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: const BorderSide(color: AppColors.borderColor, width: 1.2),
+          ),
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          child: ListTile(
+            leading: const Icon(Icons.person, color: AppColors.primaryColor),
+            title: Text(
+              patient.name,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text("${patient.status} - ${patient.room}"),
+            trailing: IconButton(
+              icon: const Icon(
+                Icons.add_circle_outline,
+                color: AppColors.primaryColor,
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => AddRequestDialog(
+                    patient: patient,
+                    onSubmit: (req) {
+                      addRequest(req);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Request added for ${req.patientName} ✅",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget requestsTab(BuildContext context) {
+    Color getPriorityColor(String priority) {
+      switch (priority) {
+        case "High":
+          return Colors.orange;
+        case "Critical":
+          return Colors.red;
+        default:
+          return AppColors.grayColor;
+      }
+    }
+
+    return ValueListenableBuilder(
+      valueListenable: store.listenable,
+      builder: (context, Box<PatientRequest> box, _) {
+        final requests = box.values.toList().reversed.toList();
+
+        if (requests.isEmpty) {
+          return const Center(
+            child: Text(
+              "No requests yet.",
+              style: TextStyle(color: AppColors.grayColor),
+            ),
+          );
+        }
+
+        return ListView.builder(
+          padding: const EdgeInsets.all(12),
+          itemCount: requests.length,
+          itemBuilder: (context, index) {
+            final req = requests[index];
+            final color = getPriorityColor(req.priority);
+
+            return Dismissible(
+              key: ValueKey(req.id),
+              direction: DismissDirection.endToStart,
+              background: Container(
+                color: Colors.redAccent,
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: 20),
+                child: const Icon(Icons.delete, color: Colors.white),
+              ),
+              onDismissed: (_) => removeRequest(req.id),
+              child: Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: const BorderSide(
+                    color: AppColors.borderColor,
+                    width: 1.2,
+                  ),
+                ),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.notifications_active_outlined,
+                    color: AppColors.primaryColor,
+                  ),
+                  title: Text(
+                    req.patientName,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text("${req.requestType} (${req.priority})"),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () => removeRequest(req.id),
+                  ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: AppColors.backGroundColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          side: const BorderSide(color: AppColors.borderColor),
+                        ),
+                        title: const Text(
+                          "Request Details",
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Patient: ${req.patientName}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text("Type: ${req.requestType}"),
+                            Text(
+                              "Priority: ${req.priority}",
+                              style: TextStyle(color: color),
+                            ),
+                            const SizedBox(height: 10),
+                            Text("Details:\n${req.details}"),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              removeRequest(req.id);
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Reject",
+                              style: TextStyle(color: Colors.redAccent),
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryColor,
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("Accept"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -36,11 +251,10 @@ class _PatientScreenState extends State<PatientScreen>
       backgroundColor: AppColors.backGroundColor,
       body: Column(
         children: [
-          const SizedBox(height: 20),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TabBar(
-              controller: _tabController,
+              controller: tabController,
               indicator: BoxDecoration(borderRadius: BorderRadius.circular(10)),
               labelColor: AppColors.primaryColor,
               unselectedLabelColor: AppColors.grayColor,
@@ -52,14 +266,8 @@ class _PatientScreenState extends State<PatientScreen>
           ),
           Expanded(
             child: TabBarView(
-              controller: _tabController,
-              children: [
-                buildPatientsTab(onAddRequest: addRequest),
-                buildRequestsTab(
-                  requests: requests,
-                  onRemoveRequest: removeRequest,
-                ),
-              ],
+              controller: tabController,
+              children: [patientsTab(context), requestsTab(context)],
             ),
           ),
         ],

@@ -49,12 +49,11 @@ class _ICUBedsScreenState extends State<ICUBedsScreen> {
               ),
             ),
 
-            // المساحة لباقي المحتوى (الـ TabBarView)
             Expanded(
               child: TabBarView(
                 children: [
                   BedsTab(beds: beds),
-                  RequestsTab(requests: requests),
+                  RequestsTabICU(requests: requests),
                 ],
               ),
             ),
