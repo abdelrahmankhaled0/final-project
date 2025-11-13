@@ -9,34 +9,34 @@ class PatientScreen extends StatefulWidget {
   const PatientScreen({super.key});
 
   @override
-  State<PatientScreen> createState() => PatientScreenState();
+  State<PatientScreen> createState() => _PatientScreenState();
 }
 
-class PatientScreenState extends State<PatientScreen>
+class _PatientScreenState extends State<PatientScreen>
     with SingleTickerProviderStateMixin {
-  late TabController tabController;
-  final PatientDataStore store = PatientDataStore();
+  late TabController _tabController;
+  final PatientDataStore _store = PatientDataStore();
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
-  void addRequest(PatientRequest req) {
-    store.addRequest(req);
-    tabController.animateTo(1);
+  void _addRequest(PatientRequest req) {
+    _store.addRequest(req);
+    _tabController.animateTo(1);
   }
 
-  void removeRequest(String id) => store.removeRequest(id);
+  void _removeRequest(String id) => _store.removeRequest(id);
 
   @override
   void dispose() {
-    tabController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
-  Widget patientsTab(BuildContext context) {
+  Widget _patientsTab(BuildContext context) {
     final patients = [
       Patient(
         name: "Mohamed Ahmed",
@@ -90,7 +90,7 @@ class PatientScreenState extends State<PatientScreen>
                   builder: (_) => AddRequestDialog(
                     patient: patient,
                     onSubmit: (req) {
-                      addRequest(req);
+                      _addRequest(req);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -109,7 +109,7 @@ class PatientScreenState extends State<PatientScreen>
     );
   }
 
-  Widget requestsTab(BuildContext context) {
+  Widget _requestsTab(BuildContext context) {
     Color getPriorityColor(String priority) {
       switch (priority) {
         case "High":
@@ -122,7 +122,7 @@ class PatientScreenState extends State<PatientScreen>
     }
 
     return ValueListenableBuilder(
-      valueListenable: store.listenable,
+      valueListenable: _store.listenable,
       builder: (context, Box<PatientRequest> box, _) {
         final requests = box.values.toList().reversed.toList();
 
@@ -151,7 +151,7 @@ class PatientScreenState extends State<PatientScreen>
                 padding: const EdgeInsets.only(right: 20),
                 child: const Icon(Icons.delete, color: Colors.white),
               ),
-              onDismissed: (_) => removeRequest(req.id),
+              onDismissed: (_) => _removeRequest(req.id),
               child: Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 shape: RoundedRectangleBorder(
@@ -176,7 +176,7 @@ class PatientScreenState extends State<PatientScreen>
                       Icons.delete_outline,
                       color: Colors.redAccent,
                     ),
-                    onPressed: () => removeRequest(req.id),
+                    onPressed: () => _removeRequest(req.id),
                   ),
                   onTap: () {
                     showDialog(
@@ -217,7 +217,7 @@ class PatientScreenState extends State<PatientScreen>
                         actions: [
                           TextButton(
                             onPressed: () {
-                              removeRequest(req.id);
+                              _removeRequest(req.id);
                               Navigator.pop(context);
                             },
                             child: const Text(
@@ -254,7 +254,7 @@ class PatientScreenState extends State<PatientScreen>
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TabBar(
-              controller: tabController,
+              controller: _tabController,
               indicator: BoxDecoration(borderRadius: BorderRadius.circular(10)),
               labelColor: AppColors.primaryColor,
               unselectedLabelColor: AppColors.grayColor,
@@ -266,8 +266,8 @@ class PatientScreenState extends State<PatientScreen>
           ),
           Expanded(
             child: TabBarView(
-              controller: tabController,
-              children: [patientsTab(context), requestsTab(context)],
+              controller: _tabController,
+              children: [_patientsTab(context), _requestsTab(context)],
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 part 'patient_model.g.dart';
 
 @HiveType(typeId: 0)
@@ -27,6 +28,7 @@ class PatientRequest extends HiveObject {
   });
 }
 
+// Patient عادي (مش محفوظ في Hive) - اختياري
 class Patient {
   final String name;
   final String status;

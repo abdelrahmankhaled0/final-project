@@ -1,7 +1,7 @@
 import 'package:final_project/features/patient/data/models/patient_model.dart';
 import 'package:final_project/features/patient/data/patient_data_store.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class PatientViewModel extends ChangeNotifier {
   final PatientDataStore _store = PatientDataStore();
