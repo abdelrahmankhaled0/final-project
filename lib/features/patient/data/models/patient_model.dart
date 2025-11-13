@@ -28,7 +28,6 @@ class PatientRequest extends HiveObject {
   });
 }
 
-// Patient عادي (مش محفوظ في Hive) - اختياري
 class Patient {
   final String name;
   final String status;
