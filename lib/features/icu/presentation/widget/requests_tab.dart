@@ -2,9 +2,9 @@ import 'package:final_project/core/utils/colors.dart';
 import 'package:final_project/features/icu/data/model/icu_model.dart';
 import 'package:flutter/material.dart';
 
-class RequestsTab extends StatelessWidget {
+class RequestsTabICU extends StatelessWidget {
   final List<ICURequest> requests;
-  const RequestsTab({super.key, required this.requests});
+  const RequestsTabICU({super.key, required this.requests});
 
   @override
   Widget build(BuildContext context) {

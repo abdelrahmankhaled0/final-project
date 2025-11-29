@@ -32,9 +32,7 @@ class _BloodScreenState extends State<BloodScreen>
       backgroundColor: AppColors.backGroundColor,
       body: Column(
         children: [
-          const SizedBox(height: 12),
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
