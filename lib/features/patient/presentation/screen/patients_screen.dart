@@ -85,7 +85,7 @@ class _PatientScreenState extends State<PatientScreen>
                 color: AppColors.primaryColor,
               ),
               onPressed: () {
-                showDialog(
+                showBottomSheet(
                   context: context,
                   builder: (_) => AddRequestDialog(
                     patient: patient,
