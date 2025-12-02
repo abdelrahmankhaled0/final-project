@@ -9,6 +9,7 @@ import 'package:final_project/features/authentacation/presentation/widgets/defau
 import 'package:final_project/features/authentacation/presentation/widgets/default_password_form_filed.dart';
 import 'package:final_project/features/authentacation/presentation/widgets/default_social_register.dart';
 import 'package:gap/gap.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: must_be_immutable
 class SignupScreen extends StatelessWidget {
@@ -18,6 +19,38 @@ class SignupScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
+
+  Future<void> registerUser(BuildContext context) async {
+    final auth = FirebaseAuth.instance;
+
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+    final confirmPassword = confirmPasswordController.text.trim();
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Passwords do not match")));
+      return;
+    }
+
+    try {
+      UserCredential user = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Account created successfully!")));
+
+      AppNavigations.pushReplaceMentTo(context, AppRoutes.signin);
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? "Registration failed")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +62,6 @@ class SignupScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               Text('Sign up', style: TextStyles.textStyle24),
               Gap(12),
@@ -56,12 +88,11 @@ class SignupScreen extends StatelessWidget {
                 controller: confirmPasswordController,
                 lableText: "Confirm password",
               ),
-
               Gap(70),
               DefaultBotton(
                 textBotton: "Sign Up",
                 onPressrd: () {
-                  AppNavigations.pushReplaceMentTo(context, AppRoutes.signin);
+                  registerUser(context);
                 },
               ),
               Gap(30),

@@ -66,7 +66,7 @@ class _AddRequestDialogState extends State<AddRequestDialog> {
             ),
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
-              value: selectedPriority,
+              initialValue: selectedPriority,
               decoration: const InputDecoration(
                 labelText: "Priority",
                 labelStyle: TextStyle(color: AppColors.primaryColor),

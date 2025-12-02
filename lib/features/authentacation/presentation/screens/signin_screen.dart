@@ -8,6 +8,7 @@ import 'package:final_project/features/authentacation/presentation/widgets/defau
 import 'package:final_project/features/authentacation/presentation/widgets/default_form_filed.dart';
 import 'package:final_project/features/authentacation/presentation/widgets/default_password_form_filed.dart';
 import 'package:final_project/features/authentacation/presentation/widgets/default_social_register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -75,11 +76,24 @@ class SigninScreen extends StatelessWidget {
               Gap(70),
               DefaultBotton(
                 textBotton: "Sign In",
-                onPressrd: () {
-                  AppNavigations.pushReplaceMentTo(
-                    context,
-                    AppRoutes.homeScreen,
-                  );
+                onPressrd: () async {
+                  try {
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
+                    );
+                    AppNavigations.pushReplaceMentTo(
+                      context,
+                      AppRoutes.homeScreen,
+                    );
+                  } on FirebaseAuthException catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.message ?? "Login failed"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
               ),
               Gap(30),
