@@ -86,7 +86,7 @@ class _AddRequestDialogState extends State<AddRequestDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text("Cancel"),
+          child: const Text("Cancel", style: TextStyle(color: Colors.red)),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
